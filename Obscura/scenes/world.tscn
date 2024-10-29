@@ -63,10 +63,9 @@ script = ExtResource("3_4fllx")
 [node name="Shmup Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_ttnp6")]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 30, 0)
 script = ExtResource("6_mj83n")
-top_left = 25.0
-bottom_right = 25.0
-autoscroll_speed = 0.1
-cam_offset = 10.0
+top_left = Vector2(-5, 5)
+bottom_right = Vector2(20, -20)
+autoscroll_speed = Vector3(0.1, 0, 0)
 target = NodePath("../Vessel")
 dist_above_target = 20.0
 
@@ -76,9 +75,15 @@ offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("3_4fllx")
 
-[node name="PositionLerp" parent="." instance=ExtResource("3_ttnp6")]
+[node name="PositionLerp" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_ttnp6")]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 30, 0)
 script = ExtResource("7_kfyl5")
+vertical_line = 10.0
+horizontal_line = 10.0
+follow_speed = 0.02
+catchup_speed = 0.1
+leash_distance = 0.01
+target = NodePath("../Vessel")
 
 [node name="debug" type="Label" parent="PositionLerp"]
 visible = false
