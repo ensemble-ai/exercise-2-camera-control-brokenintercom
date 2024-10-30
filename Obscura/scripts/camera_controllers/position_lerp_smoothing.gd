@@ -5,9 +5,9 @@ extends CameraControllerBase
 @export var vertical_line:float = 10.0
 @export var horizontal_line:float = 10.0
 
-@export var follow_speed:float = 0.02
-@export var catchup_speed:float = 0.1
-@export var leash_distance:float = 0.01
+@export var follow_speed:float = 0.1
+@export var catchup_speed:float = 10
+@export var leash_distance:float = 5
 
 # TO TURN VECTOR 3 TO JUST DIRECTION, do VECTOR3.NORMALIZE()
 # (tpos-cpos).normalize
@@ -21,6 +21,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if !current:
+		global_position = target.position
 		return
 	
 	if draw_camera_logic: 
@@ -29,12 +30,25 @@ func _process(delta: float) -> void:
 	var tpos = target.global_position
 	var cpos = global_position
 	
-	# If the vessel isn't where the camera is, have the camera start catching up
-	global_position = lerp(cpos, tpos, follow_speed)
+	# calculate distance between the camera and the vessel
+	# target.velocity.length()
+	# elapsed time/ duration of lerp
+	# velocity times follow speed times delta
+	var distance:float = cpos.distance_to(tpos)
+	
+	# If the vessel isn't where the camera is, have the camera start following
+	if distance > 21:
+		global_position.x += target.velocity.x * follow_speed * delta
+		global_position.z += target.velocity.z * follow_speed * delta
 		
-		
+	
+	# If the vessel has stopped moving, have the camera start catching up
+	elif target.velocity.length() == 0:
+		#print("standing still")
+		pass
 		
 	# Prevent the camera from falling behind via a leash/minimum distance
+	elif distance 
 	
 
 	super(delta)
