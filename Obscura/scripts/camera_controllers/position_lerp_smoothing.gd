@@ -2,17 +2,12 @@ class_name PositionLerpSmoothing
 extends CameraControllerBase
 
 
-@export var vertical_line:float = 10.0
-@export var horizontal_line:float = 10.0
+@export var vertical_line:float = 5.0
+@export var horizontal_line:float = 5.0
 
 @export var follow_speed:float = 0.5
-@export var catchup_speed:float = 1
-@export var leash_distance:float = 5
-
-# TO TURN VECTOR 3 TO JUST DIRECTION, do VECTOR3.NORMALIZE()
-# (tpos-cpos).normalize
-# LENGTH()
-
+@export var catchup_speed:float = 4.0
+@export var leash_distance:float = 2.0
 
 func _ready() -> void:
 	super()
@@ -31,17 +26,12 @@ func _process(delta: float) -> void:
 	var cpos = global_position
 	
 	# calculate distance between the camera and the vessel
-	# target.velocity.length()
-	# elapsed time/ duration of lerp
-	# velocity times follow speed times delta
-	var distance:float = global_position.distance_to(target.global_position) - 20
+	var distance:float = global_position.distance_to(target.global_position) - 20.0
 	
 	# If the vessel isn't where the camera is, have the camera mrove toward the vessel (slower)
 	if distance > 0:
-		print("follow")
 		global_position.x += target.velocity.x * follow_speed * delta
 		global_position.z += target.velocity.z * follow_speed * delta
-		#global_position = lerp(global_position, target.global_position, follow_speed)
 		
 	# Keep the camera at minimum a leash_distance away from the vessel
 	if distance > leash_distance:
@@ -67,12 +57,6 @@ func _process(delta: float) -> void:
 	if (position.x < target.position.x) && (target.velocity.x == 0):
 		position.x += (target.position.x - position.x) * catchup_speed * delta
 	
-		
-		
-	# If vessel stopped moving in z axis, have the camera start catching up in that direction
-	if target.velocity.z == 0:
-		pass
-
 	super(delta)
 
 

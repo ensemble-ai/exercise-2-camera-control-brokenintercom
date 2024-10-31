@@ -3,7 +3,7 @@ extends CameraControllerBase
 
 @export var top_left:Vector2 = Vector2(-15, 15)
 @export var bottom_right:Vector2 = Vector2(15, -15)
-@export var autoscroll_speed:Vector3 = Vector3(1, 0, 0)
+@export var autoscroll_speed:Vector3 = Vector3(0.3, 0, 0)
 
 func _ready() -> void:
 	super()

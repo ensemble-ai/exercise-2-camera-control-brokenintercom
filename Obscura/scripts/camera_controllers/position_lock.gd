@@ -2,8 +2,8 @@ class_name PositionLockCamera
 extends CameraControllerBase
 
 
-@export var vertical_line:float = 10.0
-@export var horizontal_line:float = 10.0
+@export var vertical_line:float = 5.0
+@export var horizontal_line:float = 5.0
 
 
 func _ready() -> void:
