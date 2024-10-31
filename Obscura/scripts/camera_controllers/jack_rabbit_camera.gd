@@ -5,10 +5,10 @@ extends CameraControllerBase
 @export var vertical_line:float = 5.0
 @export var horizontal_line:float = 5.0
 
-@export var lead_speed:float = 1.5
-@export var catchup_delay_duration:float = 0.5
-@export var catchup_speed:float = 2.0
-@export var leash_distance:float = 1.0
+@export var lead_speed:float = 2.0
+@export var catchup_delay_duration:float = 0.2
+@export var catchup_speed:float = 5.0
+@export var leash_distance:float = 2.0
 
 func _ready() -> void:
 	super()
@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 		global_position.z += target.velocity.z * lead_speed * delta		
 		
 	# Preven the camera from moving too far from the vessel via a leash
-	print(distance)
 	if distance >= leash_distance:
 		global_position.x -= (global_position.x - target.global_position.x) * 0.1
 		global_position.z -= (global_position.z - target.global_position.z) * 0.1
@@ -100,7 +99,8 @@ func draw_logic() -> void:
 	
 	add_child(mesh_instance)
 	mesh_instance.global_transform = Transform3D.IDENTITY
-	mesh_instance.global_position = Vector3(global_position.x, target.global_position.y, global_position.z)
+	mesh_instance.global_position = Vector3(global_position.x, target.global_position.y, 
+	global_position.z)
 	
 	#mesh is freed after one update of _process
 	await get_tree().process_frame

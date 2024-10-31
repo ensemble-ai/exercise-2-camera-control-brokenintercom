@@ -102,7 +102,8 @@ func draw_logic() -> void:
 	
 	add_child(mesh_instance)
 	mesh_instance.global_transform = Transform3D.IDENTITY
-	mesh_instance.global_position = Vector3(global_position.x, target.global_position.y, global_position.z)
+	mesh_instance.global_position = Vector3(global_position.x, target.global_position.y, 
+	global_position.z)
 	
 	#mesh is freed after one update of _process
 	await get_tree().process_frame
