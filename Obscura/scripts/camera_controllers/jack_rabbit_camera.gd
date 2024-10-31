@@ -6,9 +6,9 @@ extends CameraControllerBase
 @export var horizontal_line:float = 5.0
 
 @export var lead_speed:float = 1.5
-@export var catchup_delay_duration:float = 1.0
-@export var catchup_speed:float = 0.8
-@export var leash_distance:float = 3.0
+@export var catchup_delay_duration:float = 0.5
+@export var catchup_speed:float = 2.0
+@export var leash_distance:float = 1.0
 
 func _ready() -> void:
 	super()
@@ -48,8 +48,8 @@ func _process(delta: float) -> void:
 	# Preven the camera from moving too far from the vessel via a leash
 	print(distance)
 	if distance >= leash_distance:
-		global_position.x -= target.velocity.x * delta
-		global_position.z -= target.velocity.z * delta
+		global_position.x -= (global_position.x - target.global_position.x) * 0.1
+		global_position.z -= (global_position.z - target.global_position.z) * 0.1
 	
 	# If the vessel stops moving, wait until the delay ends to start adjusting the camera
 	if (target.velocity.x == 0) && (target.velocity.z == 0):
